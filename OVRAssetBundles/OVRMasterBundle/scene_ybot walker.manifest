@@ -1,0 +1,66 @@
+ManifestFileVersion: 0
+CRC: 1157308583
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7a976a6d697bb092a02cb9ffaa4fe10b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a297ed376ca27b2fc762a9780ea711fc
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0ca34a6148db2d54493f84f379293f33, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 154
+  Script: {instanceID: 0}
+- Class: 156
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 196
+  Script: {instanceID: 0}
+- Class: 218
+  Script: {instanceID: 0}
+- Class: 850595691
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/YBot Walker.unity
+Dependencies:
+- C:/Users/johnn/Procedural Animated Humanoid/OVRAssetBundles/OVRMasterBundle/asset_asset0
+- C:/Users/johnn/Procedural Animated Humanoid/OVRAssetBundles/OVRMasterBundle/asset_controller0
+- C:/Users/johnn/Procedural Animated Humanoid/OVRAssetBundles/OVRMasterBundle/asset_fbx0

@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 2284790131
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c79c23320900bf65230a56cea1c1d480
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e8df1f9f82371e82de919a94edcc7dd6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/YBotVR Walker.controller
+Dependencies:
+- C:/Users/johnn/Procedural Animated Humanoid/OVRAssetBundles/OVRMasterBundle/asset_fbx0

@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 2694403775
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9aa859c8f7a9d093f73c98a32c872682
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1fc3dfd6374cff5856caf7ef2cc1a77f
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 156
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Terrain/Terrain_0_0_6f9371a3-7c17-4117-8559-9ca40eea7fb5.asset
+Dependencies: []

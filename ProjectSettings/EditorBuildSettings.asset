@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/YBot Walker.unity
+    guid: 1cebd38028999794f9580151ae4771fb
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2e12100bcb94d3f45923682097a761cc, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 00cb4cd6f83ec4c47932b7b37537f438, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c87c5426dbe801b49ac7a69966679564, type: 2}
