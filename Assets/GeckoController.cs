@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEditor.Rendering; using UnityEngine;
 
 public class GeckoController : MonoBehaviour 
@@ -19,6 +20,45 @@ public class GeckoController : MonoBehaviour
     [SerializeField] float leftEyeMinYRotation = -45f;
     [SerializeField] float rightEyeMaxYRotation = 45f;
     [SerializeField] float rightEyeMinYRotation = -45f;
+
+    // Leg Stepping
+    [SerializeField] LegStepper frontLeftLegStepper;
+    [SerializeField] LegStepper frontRightLegStepper;
+    [SerializeField] LegStepper backLeftLegStepper;
+    [SerializeField] LegStepper backRightLegStepper;
+
+    private void Awake()
+    {
+        StartCoroutine(LegUpdateCoroutine());
+    }
+
+    IEnumerator LegUpdateCoroutine()
+    {
+      // Run continuously
+      while (true)
+      {
+        // Try moving one diagonal pair of legs
+        do
+        {
+          frontLeftLegStepper.TryMove();
+          backRightLegStepper.TryMove();
+          // Wait a frame
+          yield return null;
+          
+          // Stay in this loop while either leg is moving.
+          // If only one leg in the pair is moving, the calls to TryMove() will let
+          // the other leg move if it wants to.
+        } while (backRightLegStepper.Moving || frontLeftLegStepper.Moving);
+
+        // Do the same thing for the other diagonal pair
+        do
+        {
+          frontRightLegStepper.TryMove();
+          backLeftLegStepper.TryMove();
+          yield return null;
+        } while (backLeftLegStepper.Moving || frontRightLegStepper.Moving);
+      }
+    }
 
 
     // We will put all our animation code in LateUpdate.

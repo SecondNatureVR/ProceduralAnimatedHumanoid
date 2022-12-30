@@ -370,8 +370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   homeTransform: {fileID: 938501493}
-  wantStepAtDistance: 0.6
-  moveDuration: 0.3
+  wantStepAtDistance: 0.64
+  moveDuration: 0.5
+  stepOvershootFraction: 0.5
   Moving: 0
 --- !u!4 &78436530 stripped
 Transform:
@@ -1312,8 +1313,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   homeTransform: {fileID: 642591723}
-  wantStepAtDistance: 0.6
-  moveDuration: 0.3
+  wantStepAtDistance: 0.64
+  moveDuration: 0.5
+  stepOvershootFraction: 0.5
   Moving: 0
 --- !u!4 &564710150 stripped
 Transform:
@@ -2554,6 +2556,10 @@ MonoBehaviour:
   leftEyeMinYRotation: -80
   rightEyeMaxYRotation: 80
   rightEyeMinYRotation: -80
+  frontLeftLegStepper: {fileID: 1304577661}
+  frontRightLegStepper: {fileID: 75984959}
+  backLeftLegStepper: {fileID: 562974555}
+  backRightLegStepper: {fileID: 1370573833}
 --- !u!114 &1006440581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3182,8 +3188,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   homeTransform: {fileID: 1786914652}
-  wantStepAtDistance: 0.6
-  moveDuration: 0.3
+  wantStepAtDistance: 0.64
+  moveDuration: 0.5
+  stepOvershootFraction: 0.5
   Moving: 0
 --- !u!1 &1312153862
 GameObject:
@@ -3525,8 +3532,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   homeTransform: {fileID: 107826008}
-  wantStepAtDistance: 0.6
-  moveDuration: 0.3
+  wantStepAtDistance: 0.64
+  moveDuration: 0.5
+  stepOvershootFraction: 0.5
   Moving: 0
 --- !u!4 &1379929518 stripped
 Transform:

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LegStepper : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class LegStepper : MonoBehaviour
     // How long a step takes to complete
     [SerializeField] float moveDuration;
 
+    // Fraction of the max distance from home we want to overshoot by
+    [SerializeField] float stepOvershootFraction;
+
     // Is the leg moving?
     public bool Moving;
 
-    void Update()
+    public void TryMove()
     {
       // If we are already moving, don't start another move
       if (Moving) return;
@@ -31,39 +35,53 @@ public class LegStepper : MonoBehaviour
     // Coroutines must return an IEnumerator
     IEnumerator MoveToHome()
     {
-        // Indicate we're moving (used later)
-        Moving = true;
+          Moving = true;
 
-        // Store the initial conditions
-        Quaternion startRot = transform.rotation;
-        Vector3 startPoint = transform.position;
+          Vector3 startPoint = transform.position;
+          Quaternion startRot = transform.rotation;
 
-        Quaternion endRot = homeTransform.rotation;
-        Vector3 endPoint = homeTransform.position;
+          Quaternion endRot = homeTransform.rotation;
 
-        // Time since step started
-        float timeElapsed = 0;
+          // Directional vector from the foot to the home position
+          Vector3 towardHome = (homeTransform.position - transform.position);
+          // Total distnace to overshoot by   
+          float overshootDistance = wantStepAtDistance * stepOvershootFraction;
+          Vector3 overshootVector = towardHome * overshootDistance;
+          // Since we don't ground the point in this simplified implementation,
+          // we restrict the overshoot vector to be level with the ground
+          // by projecting it on the world XZ plane.
+          overshootVector = Vector3.ProjectOnPlane(overshootVector, Vector3.up);
 
-        // Here we use a do-while loop so the normalized time goes past 1.0 on the last iteration,
-        // placing us at the end position before ending.
-        do
-        {
-            // Add time since last frame to the time elapsed
+          // Apply the overshoot
+          Vector3 endPoint = homeTransform.position + overshootVector;
+
+          // We want to pass through the center point
+          Vector3 centerPoint = (startPoint + endPoint) / 2;
+          // But also lift off, so we move it up by half the step distance (arbitrarily)
+          centerPoint += Vector3.up * Vector3.Distance(startPoint, endPoint);
+
+          float timeElapsed = 0;
+          do
+          {
             timeElapsed += Time.deltaTime;
-
             float normalizedTime = timeElapsed / moveDuration;
+            normalizedTime = Easing.Cubic.InOut(normalizedTime);
 
-            // Interpolate position and rotation
-            transform.position = Vector3.Lerp(startPoint, endPoint, normalizedTime);
+            // Quadratic bezier curve
+            transform.position =
+              Vector3.Lerp(
+                Vector3.Lerp(startPoint, centerPoint, normalizedTime),
+                Vector3.Lerp(centerPoint, endPoint, normalizedTime),
+                normalizedTime
+              );
+
             transform.rotation = Quaternion.Slerp(startRot, endRot, normalizedTime);
 
-            // Wait for one frame
             yield return null;
-        }
-        while (timeElapsed < moveDuration);
+          }
+          while (timeElapsed < moveDuration);
 
-        // Done moving
-        Moving = false;
+          Moving = false;
     }
 }
 
