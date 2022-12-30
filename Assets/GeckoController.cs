@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
-using UnityEditor.Rendering; using UnityEngine;
+using UnityEngine;
+using static Utils;
 
 public class GeckoController : MonoBehaviour 
 {
@@ -26,6 +27,23 @@ public class GeckoController : MonoBehaviour
     [SerializeField] LegStepper frontRightLegStepper;
     [SerializeField] LegStepper backLeftLegStepper;
     [SerializeField] LegStepper backRightLegStepper;
+
+    // How fast we can turn and move full throttle
+    [SerializeField] float turnSpeed;
+    [SerializeField] float moveSpeed;
+    // How fast we will reach the above speeds
+    [SerializeField] float turnAcceleration;
+    [SerializeField] float moveAcceleration;
+    // Try to stay in this range from the target
+    [SerializeField] float minDistToTarget;
+    [SerializeField] float maxDistToTarget;
+    // If we are above this angle from the target, start turning
+    [SerializeField] float maxAngToTarget;
+
+    // World space velocity
+    Vector3 currentVelocity;
+    // We are only doing a rotation around the up axis, so we only use a float here
+    float currentAngularVelocity;
 
     private void Awake()
     {
@@ -60,12 +78,83 @@ public class GeckoController : MonoBehaviour
       }
     }
 
+    void RootMotionUpdate()
+    {
+        // Get the direction toward our target
+        Vector3 towardTarget = target.position - transform.position;
+        // Vector toward target on the local XZ plane
+        Vector3 towardTargetProjected = Vector3.ProjectOnPlane(towardTarget, transform.up);
+        // Get the angle from the gecko's forward direction to the direction toward toward our target
+        // Here we get the signed angle around the up vector so we know which direction to turn in
+        float angToTarget = Vector3.SignedAngle(transform.forward, towardTargetProjected, transform.up);
+
+        float targetAngularVelocity = 0;
+
+        // If we are within the max angle (i.e. approximately facing the target)
+        // leave the target angular velocity at zero
+        if (Mathf.Abs(angToTarget) > maxAngToTarget)
+        {
+            // Angles in Unity are clockwise, so a positive angle here means to our right
+            if (angToTarget > 0)
+            {
+                targetAngularVelocity = turnSpeed;
+            }
+            // Invert angular speed if target is to our left
+            else
+            {
+                targetAngularVelocity = -turnSpeed;
+            }
+        }
+
+
+        //// To be placed in the RootMotionUpdate method below the rotation code ////
+
+        Vector3 targetVelocity = Vector3.zero;
+
+        // Don't move if we're facing away from the target, just rotate in place
+        if (Mathf.Abs(angToTarget) < 90)
+        {
+          float distToTarget = Vector3PlaneDistance(headBone.position, target.position, Vector3.up);
+          // If we're too far away, approach the target
+          if (distToTarget > maxDistToTarget)
+          {
+            targetVelocity = moveSpeed * towardTargetProjected.normalized;
+          }
+          // If we're too close, reverse the direction and move away
+          else if (distToTarget < minDistToTarget)
+          {
+            targetVelocity = moveSpeed * -towardTargetProjected.normalized * 5;
+          }
+        }
+
+        currentVelocity = Vector3.Lerp(
+          currentVelocity,
+          targetVelocity,
+          1 - Mathf.Exp(-moveAcceleration * Time.deltaTime)
+        );
+
+        // Apply the velocity
+        transform.position += currentVelocity * Time.deltaTime;
+
+        // Use our smoothing function to gradually change the velocity
+        currentAngularVelocity = Mathf.Lerp(
+          currentAngularVelocity,
+          targetAngularVelocity,
+          1 - Mathf.Exp(-turnAcceleration * Time.deltaTime)
+        );
+
+        // Rotate the transform around the Y axis in world space, 
+        // making sure to multiply by delta time to get a consistent angular velocity
+        transform.Rotate(0, Time.deltaTime * currentAngularVelocity, 0, Space.World);
+    }
+
 
     // We will put all our animation code in LateUpdate.
     // This allows other systems to update the environment first, 
     // allowing the animation system to adapt to it before the frame is drawn.
     void LateUpdate()
     {
+        RootMotionUpdate();
         HeadTrackingUpdate();
         EyeTrackingUpdate();
     }
