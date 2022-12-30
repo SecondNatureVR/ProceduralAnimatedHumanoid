@@ -13,6 +13,11 @@ public class GeckoController_Full : MonoBehaviour
     [SerializeField] bool legSteppingEnabled;
     bool legIKEnabled;
 
+    public void SetTarget(Transform other)
+    {
+        target = other;
+    }
+
     void Awake()
     {
         StartCoroutine(LegUpdateCoroutine());

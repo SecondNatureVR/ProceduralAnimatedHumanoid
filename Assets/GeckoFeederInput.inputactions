@@ -1,14 +1,14 @@
 {
-    "name": "Procedural Animated Humanoid",
+    "name": "GeckoFeederInput",
     "maps": [
         {
             "name": "Player",
-            "id": "b70f7ef1-59c7-46e7-acd7-43887d48b228",
+            "id": "495f234e-e18b-4ee7-a91c-318074d8d3b1",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "695a22c8-61af-48af-83c1-ac29039472ce",
+                    "id": "199e7acf-d6a7-410a-a0e1-a137135f2214",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -17,7 +17,7 @@
                 {
                     "name": "Look",
                     "type": "Value",
-                    "id": "f80e9e9a-7695-4dc4-a3f9-f0e191d18cf0",
+                    "id": "4b645450-04e0-4809-b40c-ba879ce8d26d",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -26,7 +26,7 @@
                 {
                     "name": "Fire",
                     "type": "Button",
-                    "id": "39bdac68-be71-40be-8ff0-f926fc27790d",
+                    "id": "28b04b12-0348-425a-b489-a5d17e7e2178",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -256,11 +256,11 @@
                 },
                 {
                     "name": "",
-                    "id": "d0d8f541-1152-408f-99ea-631cd2cf980b",
+                    "id": "b5fd3e98-50dd-4e2e-9d2e-73d3e22f0684",
                     "path": "<OculusTouchController>/triggerPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XR",
+                    "groups": "",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -269,12 +269,12 @@
         },
         {
             "name": "UI",
-            "id": "dfdf75b4-ca44-4937-82ba-16c64412fb2d",
+            "id": "3527cb0d-4d48-4575-a322-eeeeed52904f",
             "actions": [
                 {
                     "name": "Navigate",
                     "type": "PassThrough",
-                    "id": "68b25985-3139-4386-ab74-90dd53536449",
+                    "id": "0114cb5c-0a44-41e8-903e-3c50bdea29e6",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -283,7 +283,7 @@
                 {
                     "name": "Submit",
                     "type": "Button",
-                    "id": "1a63e6b3-f6e8-4e89-9961-db6e3abc3c95",
+                    "id": "caf6a1cb-032f-4a92-9dc2-2c72ba8af14d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -292,7 +292,7 @@
                 {
                     "name": "Cancel",
                     "type": "Button",
-                    "id": "0f830a1a-0ae5-4257-ab07-8035b3a68e8f",
+                    "id": "06c5b4ac-88e5-464b-9a71-8cc0bd58abb7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -301,7 +301,7 @@
                 {
                     "name": "Point",
                     "type": "PassThrough",
-                    "id": "4945c8a1-7bcf-4479-9bcb-3f831fbc3842",
+                    "id": "f539e2fc-f853-4d2e-9259-6ab470bce89c",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -310,7 +310,7 @@
                 {
                     "name": "Click",
                     "type": "PassThrough",
-                    "id": "f9b4e417-7a80-4637-9415-eb00bb8b3326",
+                    "id": "a6906c4c-7d9c-40c6-b343-b9c288180d91",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -319,7 +319,7 @@
                 {
                     "name": "ScrollWheel",
                     "type": "PassThrough",
-                    "id": "7468f1aa-089d-4443-afbd-89e0bd9b0913",
+                    "id": "2e9e4a37-9c1d-4f7c-a777-9bcd9be73417",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -328,7 +328,7 @@
                 {
                     "name": "MiddleClick",
                     "type": "PassThrough",
-                    "id": "91176c9a-639a-44ff-84b3-8b4264385607",
+                    "id": "3bb73f33-26f5-4c07-969a-3311ab847d67",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -337,7 +337,7 @@
                 {
                     "name": "RightClick",
                     "type": "PassThrough",
-                    "id": "0cfe030c-dc90-4566-b269-7b9c264e6492",
+                    "id": "5468e5d0-594e-4409-a282-05d883665a64",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -346,7 +346,7 @@
                 {
                     "name": "TrackedDevicePosition",
                     "type": "PassThrough",
-                    "id": "f198ca01-bfb2-461b-849d-7805b85da60a",
+                    "id": "3b5f64cb-b295-4b74-8f25-6e25d1d09bd1",
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
@@ -355,7 +355,7 @@
                 {
                     "name": "TrackedDeviceOrientation",
                     "type": "PassThrough",
-                    "id": "547948ba-6389-4e01-bd6a-2aba4b55cb62",
+                    "id": "59b579b2-39a3-469a-b461-ad050bcc22c8",
                     "expectedControlType": "Quaternion",
                     "processors": "",
                     "interactions": "",
