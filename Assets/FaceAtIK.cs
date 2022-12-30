@@ -6,7 +6,7 @@ public class FaceAtIK : MonoBehaviour
   [SerializeField] Transform target;
   [SerializeField] Transform sourceBone;
   [SerializeField] float speed = 1.0f;
-  [SerializeField] float maxTurnAngle = 1.0f;
+  [SerializeField] float maxTurnAngle = 60.0f;
     
   
   void LateUpdate()
