@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class GeckoController_Full : MonoBehaviour
@@ -51,10 +52,27 @@ public class GeckoController_Full : MonoBehaviour
     [SerializeField] float turnAcceleration = 5f;
     [SerializeField] float moveAcceleration = 5f;
     [SerializeField] float minDistToTarget = 4.5f;
+    [SerializeField] float defaultMaxDistToTarget = 6f;
     [SerializeField] float maxDistToTarget = 6f;
 
     SmoothDamp.Vector3 currentVelocity;
     SmoothDamp.Float currentAngularVelocity;
+
+    public void SetMaxDistToTarget(float distToTarget)
+    {
+        maxDistToTarget = distToTarget;
+    }
+
+    public void ResetMaxDistToTarget()
+    {
+        maxDistToTarget = defaultMaxDistToTarget;
+    }
+
+    public bool isInTargetRange {  get
+        {
+            return Vector3.Distance(headBone.transform.position, target.transform.position) <= maxDistToTarget * 1.05f;
+        } 
+    }
 
     void RootMotionUpdate()
     {

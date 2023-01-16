@@ -30,7 +30,6 @@ public class GeckoFeederController : MonoBehaviour
                 pointTarget = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
             }
             pointTarget.position = hit.transform.position;
-            geckoTarget.SetTarget(pointTarget);
         };
     }
 }
