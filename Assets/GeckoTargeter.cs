@@ -25,7 +25,7 @@ public class GeckoTargeter : MonoBehaviour
         currentTarget = other;
         gecko.SetTarget(other.transform);
         if (other.CompareTag("Food"))
-            gecko.SetMaxDistToTarget(0.5f);
+            gecko.SetMaxDistToTarget(1f);
         else
             gecko.ResetMaxDistToTarget();
     }
