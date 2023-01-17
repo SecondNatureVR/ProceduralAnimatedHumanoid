@@ -52,8 +52,8 @@ public class GeckoController_Full : MonoBehaviour
     [SerializeField] float turnAcceleration = 5f;
     [SerializeField] float moveAcceleration = 5f;
     [SerializeField] float minDistToTarget = 4.5f;
-    [SerializeField] float defaultMaxDistToTarget = 6f;
-    [SerializeField] float maxDistToTarget = 6f;
+    [SerializeField] public float defaultMaxDistToTarget = 6f;
+    [SerializeField] public float maxDistToTarget = 6f;
 
     SmoothDamp.Vector3 currentVelocity;
     SmoothDamp.Float currentAngularVelocity;

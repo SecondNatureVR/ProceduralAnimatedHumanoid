@@ -8,6 +8,8 @@ TagManager:
   - RoomLight
   - SamplesInfoPanel
   - Food
+  - Stick
+  - Fetchable
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,7 @@ public class FoodButton : MonoBehaviour
     {
         if (!triggered)
         {
-            dispenser.Dispense();
+            dispenser.DispenseAway();
             animator.Play("ButtonPress");
         }
     }
