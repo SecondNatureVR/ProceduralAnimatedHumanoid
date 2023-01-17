@@ -19,6 +19,6 @@ public class RotateCone : MonoBehaviour
     {
         Vector3 awayDir = transform.position - player.position;
         Quaternion awayRotation = Quaternion.LookRotation(awayDir);
-        transform.rotation = awayRotation;
+        transform.rotation = yRotation(awayRotation);
     }
 }
