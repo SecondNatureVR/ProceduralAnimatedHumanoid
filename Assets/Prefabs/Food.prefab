@@ -111,8 +111,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3727557139980313832}
   serializedVersion: 4
-  m_Mass: 3.11
-  m_Drag: 0.61
+  m_Mass: 2.99
+  m_Drag: 0.48
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -149,8 +149,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.53691965
-  m_Center: {x: 0.0149537325, y: 0.38, z: 0.000000059604645}
+  m_Radius: 0.39
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &726684110578430057
 MonoBehaviour:
   m_ObjectHideFlags: 0
