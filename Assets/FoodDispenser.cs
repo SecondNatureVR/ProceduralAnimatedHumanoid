@@ -8,7 +8,9 @@ public class FoodDispenser : MonoBehaviour
     public void Dispense()
     {
         var food = Instantiate(foodPrefab, transform.position + transform.forward, transform.rotation);
-        food.GetComponent<Rigidbody>().velocity = 10.0f * (transform.forward + Vector3.up);
+        var rb = food.GetComponent<Rigidbody>();
+        rb.velocity = 8.0f * (Quaternion.AngleAxis(Random.Range(-90, 90), Vector3.up) * transform.forward + Vector3.up);
+        rb.angularVelocity = rb.transform.up * -10;
     }
 
     public void OnFire(InputAction.CallbackContext context)
