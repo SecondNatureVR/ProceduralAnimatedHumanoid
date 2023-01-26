@@ -55,6 +55,7 @@ public class GeckoController_Full : MonoBehaviour
     [SerializeField] public float defaultMaxDistToTarget = 6f;
     [SerializeField] public float maxDistToTarget = 6f;
 
+    private Transform rootAnchor;
     SmoothDamp.Vector3 currentVelocity;
     SmoothDamp.Float currentAngularVelocity;
 
@@ -77,7 +78,7 @@ public class GeckoController_Full : MonoBehaviour
     void RootMotionUpdate()
     {
         if (!rootMotionEnabled) return;
-        Vector3 towardTarget = target.position - transform.position;
+        Vector3 towardTarget = target.position - rootAnchor.position;
         Vector3 towardTargetProjected = Vector3.ProjectOnPlane(towardTarget, transform.up);
 
         var angToTarget = Vector3.SignedAngle(transform.forward, towardTargetProjected, transform.up);
@@ -349,6 +350,7 @@ public class GeckoController_Full : MonoBehaviour
     {
         // Store this so we can reset it when disabled at runtime
         rootHomePos = rootBone.localPosition;
+        rootAnchor = headBone.transform;
     }
 
     void IdleBobbingUpdate()

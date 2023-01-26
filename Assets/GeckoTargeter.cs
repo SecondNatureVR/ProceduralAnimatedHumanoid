@@ -1,32 +1,30 @@
-using System.Collections; using System.Collections.Generic; using System.Linq;
-using Oculus.Interaction.GrabAPI;
-using Oculus.Interaction.HandGrab;
-using Oculus.Platform.Models;
 using UnityEngine;
+using System.Linq;
 
 public class GeckoTargeter : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GeckoController_Full gecko;
-    [SerializeField] GameObject geckoMouth;
+    public GameObject player;
+    public GeckoController_Full gecko;
+    public GameObject geckoMouth;
+    private OVRGrabber grabber;
     private GameObject grabbedTarget;
     private GameObject currentTarget;
     private GeckoState currentState = GeckoState.RETURN;
-    private OVRGrabber dummyOVRGrab;
-    private bool isNearPlayer {
+    // TODO: refactor mouth/eat boundaries and max distance logic
+    private bool IsNearPlayer {
         get
         {
             return Vector3.Distance(transform.position, player.transform.position) <= gecko.defaultMaxDistToTarget;
         }
     }
 
-    private enum GeckoState {
+    public enum GeckoState {
         FETCH, RETURN, IDLE
     }
 
     void Start()
     {
-        dummyOVRGrab = new OVRGrabber();
+        grabber = geckoMouth.GetComponentInChildren<OVRGrabber>();
         SetTarget(player);
     }
 
@@ -36,6 +34,7 @@ public class GeckoTargeter : MonoBehaviour
             other = player;
         currentTarget = other;
         gecko.SetTarget(other.transform);
+        // TODO: refactor mouth/eat boundaries and max distance logic
         if (other.CompareTag("Food"))
             gecko.SetMaxDistToTarget(0.5f);
         else if (other.CompareTag("Stick"))
@@ -44,7 +43,7 @@ public class GeckoTargeter : MonoBehaviour
             gecko.ResetMaxDistToTarget();
     }
 
-    public bool hasTarget { get { return currentTarget != null; } }
+    public bool HasTarget { get { return currentTarget != null; } }
 
     public void FindTarget()
     {
@@ -52,7 +51,7 @@ public class GeckoTargeter : MonoBehaviour
         var stick = FindStick();
         if (food != null || stick != null) {
             currentState = GeckoState.FETCH;
-            SetTarget(food ?? stick);
+            SetTarget(food == null ? stick : food);
             if (currentTarget == food)
             {
                 ReleaseGrab();
@@ -86,11 +85,11 @@ public class GeckoTargeter : MonoBehaviour
         {
             switch (currentState) {
                 case GeckoState.FETCH:
-                    if (currentTarget.CompareTag("Food"))
+                    if (MouthHasFood())
                         GameObject.Destroy(currentTarget);
-                    else if (!isNearPlayer)
+                    else if (!IsNearPlayer)
                         GrabTarget();
-                    clear();
+                    Clear();
                     break;
                 case GeckoState.RETURN:
                     ReleaseGrab();
@@ -100,17 +99,11 @@ public class GeckoTargeter : MonoBehaviour
             }
         }
     }
-
-    private void LateUpdate()
+    // TODO: refactor mouth/eat boundaries and max distance logic
+    public bool MouthHasFood()
     {
-        if (grabbedTarget != null)
-        {
-            Vector3 heldPos = geckoMouth.transform.position - geckoMouth.transform.forward * 0.5f;
-            //grabbedTarget.transform.position = heldPos;
-            var rb = grabbedTarget.GetComponent<Rigidbody>();
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
+        return currentTarget.CompareTag("Food")
+        && Vector3.Distance(currentTarget.transform.position, geckoMouth.transform.position) < 4f;
     }
 
     void GrabTarget()
@@ -119,10 +112,7 @@ public class GeckoTargeter : MonoBehaviour
         if (!target.isGrabbed)
         {
             grabbedTarget = currentTarget;
-            target.GrabBegin(dummyOVRGrab, new Collider());
-            Vector3 heldPos = geckoMouth.transform.position;
-            grabbedTarget.transform.position = heldPos;
-            grabbedTarget.transform.parent = geckoMouth.transform;
+            grabber.ForceGrab();
         }
     }
 
@@ -130,14 +120,14 @@ public class GeckoTargeter : MonoBehaviour
     {
         if (grabbedTarget != null) {
             var grabbable = grabbedTarget.GetComponent<OVRGrabbable>();
-            dummyOVRGrab.ForceRelease(grabbable);
+            grabber.ForceRelease(grabbable);
             grabbable.GetComponent<Rigidbody>().isKinematic = false;
             grabbedTarget.transform.parent = null;
             grabbedTarget = null;
         }
     }
 
-    public void clear()
+    public void Clear()
     {
         SetTarget(null);
         currentState = GeckoState.RETURN;
