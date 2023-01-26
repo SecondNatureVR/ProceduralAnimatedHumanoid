@@ -4,8 +4,10 @@ using System.Linq;
 public class GeckoTargeter : MonoBehaviour
 {
     public GameObject player;
-    public GeckoController_Full gecko;
+    // TODO: traverse children for reference
     public GameObject geckoMouth;
+    private GeckoController_Full gecko;
+    private GeckoModel geckoModel;
     private OVRGrabber grabber;
     private GameObject grabbedTarget;
     private GameObject currentTarget;
@@ -24,6 +26,8 @@ public class GeckoTargeter : MonoBehaviour
 
     void Start()
     {
+        gecko = GetComponent<GeckoController_Full>();
+        geckoModel = GetComponent<GeckoModel>();
         grabber = geckoMouth.GetComponentInChildren<OVRGrabber>();
         SetTarget(player);
     }
@@ -85,8 +89,10 @@ public class GeckoTargeter : MonoBehaviour
         {
             switch (currentState) {
                 case GeckoState.FETCH:
-                    if (MouthHasFood())
+                    if (MouthHasFood()) {
+                        geckoModel.Eat(currentTarget);
                         GameObject.Destroy(currentTarget);
+                    }
                     else if (!IsNearPlayer)
                         GrabTarget();
                     Clear();
