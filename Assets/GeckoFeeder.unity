@@ -495,15 +495,15 @@ PrefabInstance:
       objectReference: {fileID: 1915593039}
     - target: {fileID: 1845781727821069464, guid: cec5a570f2a712a43a6697978127591f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.27
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1845781727821069464, guid: cec5a570f2a712a43a6697978127591f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.27
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1845781727821069464, guid: cec5a570f2a712a43a6697978127591f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.27
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1845781727821069464, guid: cec5a570f2a712a43a6697978127591f, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -803,6 +803,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8189173868776056036, guid: f251bb42f64f8d842952e4f84602aee5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8189173868785565722, guid: f251bb42f64f8d842952e4f84602aee5, type: 3}
       propertyPath: m_Name
       value: OVRPlayerController
@@ -874,6 +878,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 1987024022, guid: f251bb42f64f8d842952e4f84602aee5, type: 3}
     - {fileID: 8189173868822504647, guid: f251bb42f64f8d842952e4f84602aee5, type: 3}
+    - {fileID: 8189173868822504641, guid: f251bb42f64f8d842952e4f84602aee5, type: 3}
+    - {fileID: 8189173868776056036, guid: f251bb42f64f8d842952e4f84602aee5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

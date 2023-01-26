@@ -19,6 +19,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -243,15 +244,14 @@ public class OVRGrabber : MonoBehaviour
 		OVRGrabbable closestGrabbable = null;
         Collider closestGrabbableCollider = null;
 
+        // Added this in case grabbable was destroyed at some point
+        m_grabCandidates = m_grabCandidates
+            .Where(g => g.Key != null) 
+            .ToDictionary(g => g.Key, g => g.Value);
+
         // Iterate grab candidates and find the closest grabbable candidate
 		foreach (OVRGrabbable grabbable in m_grabCandidates.Keys)
         {
-            // Added this block in case grabbable was destroyed at some point
-            if (grabbable == null && !ReferenceEquals(grabbable, null))
-            {
-                m_grabCandidates.Remove(grabbable);
-                continue;
-            }
             bool canGrab = !(grabbable.isGrabbed && !grabbable.allowOffhandGrab);
             if (!canGrab)
             {
@@ -412,6 +412,8 @@ public class OVRGrabber : MonoBehaviour
         if (m_grabbedObj == grabbable)
         {
             GrabbableRelease(Vector3.zero, Vector3.zero);
+            // re-enable grab volume after release
+            GrabVolumeEnable(true);
         }
     }
 
