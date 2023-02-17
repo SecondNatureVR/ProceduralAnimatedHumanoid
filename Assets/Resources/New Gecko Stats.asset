@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6a5a5477fc8f64ab0d5c39b6269e6e, type: 3}
   m_Name: New Gecko Stats
   m_EditorClassIdentifier: 
-  foodEaten: 0
+  _foodEaten: 0

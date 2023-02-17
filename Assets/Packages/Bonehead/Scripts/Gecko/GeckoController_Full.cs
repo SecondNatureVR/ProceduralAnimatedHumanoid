@@ -12,6 +12,9 @@ public class GeckoController_Full : MonoBehaviour
     [SerializeField] bool eyeTrackingEnabled;
     [SerializeField] bool tailSwayEnabled;
     [SerializeField] bool legSteppingEnabled;
+
+    public float speedModifier = 1;
+
     bool legIKEnabled;
 
     public void SetTarget(Transform other)
@@ -48,7 +51,7 @@ public class GeckoController_Full : MonoBehaviour
 
     [Header("Root Motion")]
     [SerializeField] float turnSpeed = 100f;
-    [SerializeField] float moveSpeed = 2f;
+    [SerializeField] public float moveSpeed = 2f;
     [SerializeField] float turnAcceleration = 5f;
     [SerializeField] float moveAcceleration = 5f;
     [SerializeField] float minDistToTarget = 4.5f;
@@ -84,6 +87,7 @@ public class GeckoController_Full : MonoBehaviour
         var angToTarget = Vector3.SignedAngle(transform.forward, towardTargetProjected, transform.up);
 
         float targetAngularVelocity = Mathf.Sign(angToTarget) * Mathf.InverseLerp(20f, 45f, Mathf.Abs(angToTarget)) * turnSpeed;
+        targetAngularVelocity *= speedModifier;
         currentAngularVelocity.Step(targetAngularVelocity, turnAcceleration);
 
 
@@ -109,6 +113,7 @@ public class GeckoController_Full : MonoBehaviour
             // Limit velocity progressively as we approach max angular velocity,
             // so that above 20% of max angvel we start slowing down translation
             targetVelocity *= Mathf.InverseLerp(turnSpeed, turnSpeed * 0.2f, Mathf.Abs(currentAngularVelocity));
+            targetVelocity *= speedModifier;
         }
 
         currentVelocity.Step(targetVelocity, moveAcceleration);
@@ -178,6 +183,7 @@ public class GeckoController_Full : MonoBehaviour
         // Since we apply this to each bone, the speed is multiplied by the bone count,
         // so we divide here to keep it constant
         float headTrackingSpeed = this.headTrackingSpeed / headTrackingBoneCount;
+        headTrackingSpeed *= speedModifier;
 
         currentLocalHeadEulerAngles.Step(targetLocalRotation.eulerAngles, headTrackingSpeed);
 
@@ -355,6 +361,7 @@ public class GeckoController_Full : MonoBehaviour
 
     void IdleBobbingUpdate()
     {
+        float speedMultiplier = idleSpeedMultiplier * speedModifier;
         if (!idleBobbingEnabled)
         {
             rootBone.localPosition = rootHomePos;
@@ -373,16 +380,16 @@ public class GeckoController_Full : MonoBehaviour
 
         // Rotate the root in local space over time
         rootBone.localEulerAngles = new Vector3(
-            Mathf.Sin(Time.time * idleRotationSpeed.x * idleSpeedMultiplier + idleRotationCycleOffset.x * Mathf.PI * 2) * idleRotationAmplitude.x,
-            Mathf.Sin(Time.time * idleRotationSpeed.y * idleSpeedMultiplier + idleRotationCycleOffset.y * Mathf.PI * 2) * idleRotationAmplitude.y,
-            Mathf.Sin(Time.time * idleRotationSpeed.z * idleSpeedMultiplier + idleRotationCycleOffset.z * Mathf.PI * 2) * idleRotationAmplitude.z
+            Mathf.Sin(Time.time * idleRotationSpeed.x * speedMultiplier + idleRotationCycleOffset.x * Mathf.PI * 2) * idleRotationAmplitude.x,
+            Mathf.Sin(Time.time * idleRotationSpeed.y * speedMultiplier + idleRotationCycleOffset.y * Mathf.PI * 2) * idleRotationAmplitude.y,
+            Mathf.Sin(Time.time * idleRotationSpeed.z * speedMultiplier + idleRotationCycleOffset.z * Mathf.PI * 2) * idleRotationAmplitude.z
         ) * bodyIdleAnimWeight;
 
         // Move the root in local space
         rootBone.localPosition = rootHomePos + new Vector3(
-            Mathf.Sin(Time.time * idleMotionSpeed.x * idleSpeedMultiplier) * idleMotionAmplitude.x,
-            Mathf.Sin(Time.time * idleMotionSpeed.y * idleSpeedMultiplier) * idleMotionAmplitude.y,
-            Mathf.Sin(Time.time * idleMotionSpeed.z * idleSpeedMultiplier) * idleMotionAmplitude.z
+            Mathf.Sin(Time.time * idleMotionSpeed.x * speedMultiplier) * idleMotionAmplitude.x,
+            Mathf.Sin(Time.time * idleMotionSpeed.y * speedMultiplier) * idleMotionAmplitude.y,
+            Mathf.Sin(Time.time * idleMotionSpeed.z * speedMultiplier) * idleMotionAmplitude.z
         ) * bodyIdleAnimWeight;
     }
 
